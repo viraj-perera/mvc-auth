@@ -6,6 +6,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.JpaVendorAdapter;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
@@ -24,6 +25,7 @@ import java.sql.SQLException;
 @Configuration
 @PropertySource({"classpath:data-access.properties"})
 @ComponentScan(basePackages = {"vipe.test.repository","vipe.test.model"})
+@EnableJpaRepositories(basePackages = {"vipe.test.repository"})
 public class TestAppConfig {
 
   @Autowired
@@ -50,7 +52,7 @@ public class TestAppConfig {
     LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
     em.setDataSource(dataSource);
     em.setPersistenceUnitName("vtp_core");
-    em.setPackagesToScan("com.rambutech.vtp.domain");
+    em.setPackagesToScan("vipe.test.model");
     em.setJpaVendorAdapter(jpaVendorAdaper());
     em.afterPropertiesSet();
     return em.getObject();
