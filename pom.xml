@@ -148,6 +148,26 @@
       </plugins>
     </build>
   </profile>
+
+  <profile>
+    <id>development</id>
+    <properties>
+      <releaseType>Development</releaseType>
+    </properties>
+  </profile>
+  <profile>
+    <id>staging</id>
+    <properties>
+      <releaseType>Staging</releaseType>
+    </properties>
+  </profile>
+  <profile>
+    <id>production</id>
+    <properties>
+      <releaseType>Production</releaseType>
+    </properties>
+  </profile>
+
 </profiles>
 
   <build>
@@ -160,6 +180,26 @@
           <failOnMissingWebXml>false</failOnMissingWebXml>
         </configuration>
       </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-antrun-plugin</artifactId>
+        <version>1.8</version>
+        <executions>
+          <execution>
+            <phase>validate</phase>
+            <goals>
+              <goal>run</goal>
+            </goals>
+            <configuration>
+              <tasks>
+                <echo>================== ${releaseType} Configuration =====================</echo>
+              </tasks>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+
     </plugins>
     <finalName>mvc-auth-test</finalName>
   </build>
